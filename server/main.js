@@ -16,4 +16,3 @@ Meteor.startup(() => {
     ].forEach(insertTask)
   }
 });
-// teste
