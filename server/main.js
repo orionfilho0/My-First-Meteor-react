@@ -1,3 +1,4 @@
+//ARQUIVO JS PARA MANIPULACOES ENVOLVENDO O SERVIDOR
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { TasksCollection } from '/imports/db/TasksCollection';
@@ -12,19 +13,24 @@ const insertTask = (taskText, user) =>
     createdAt: new Date(),
   });
 
+//CRIANDO CONSTANTES 
 const SEED_USERNAME = 'meteorite';
 const SEED_PASSWORD = 'password';
 
+//METEOR.STARTUP INDICA O INICIO DO CODIGO QUANDO O METEOR INICIAR
 Meteor.startup(() => {
-  if (!Accounts.findUserByUsername(SEED_USERNAME)) {
+  //PELO METODO FINDUSER SE O USUARIO NAO FOR ENCONTRADO O METODO 
+  if (!Accounts.findUserByUsername(SEED_USERNAME)) { 
     Accounts.createUser({
       username: SEED_USERNAME,
       password: SEED_PASSWORD,
     });
   }
 
+  //PROCURANDO NOME DO USUARIO E PASSANDO PARA UMA VARIAVEL USER
   const user = Accounts.findUserByUsername(SEED_USERNAME);
 
+  //PASSANDO DADOS MANUALMENTE PARA O BANCO DE DADOS
   if (TasksCollection.find().count() === 0) {
     [
       'First Task',
@@ -38,6 +44,7 @@ Meteor.startup(() => {
   }
 });
 
+//AUTENTICACAO GITHUB
 ServiceConfiguration.configurations.upsert(
   { service: 'github' },
   {

@@ -1,3 +1,4 @@
+//COMPONETE TAREFA
 import React from 'react';
 
 export const Task = ({ task, onCheckboxClick, onDeleteClick }) => {

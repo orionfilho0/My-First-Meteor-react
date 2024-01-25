@@ -8,7 +8,8 @@ export const LoginForm = () => {
 
   const submit = e => {
     e.preventDefault();
-
+    
+    //AUTENTICA USUARIO COM AS ENTRADAS FORNECIDAS
     Meteor.loginWithPassword(username, password);
   };
 

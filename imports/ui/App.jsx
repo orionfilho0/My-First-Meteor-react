@@ -1,3 +1,4 @@
+//COMPONENTE PRINCIPAL DE RENDERIZACAO
 import { Meteor } from 'meteor/meteor';
 import React, { useState, Fragment } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
@@ -6,6 +7,7 @@ import { Task } from './Task';
 import { TaskForm } from './TaskForm';
 import { LoginForm } from './LoginForm';
 
+//ALTERNAR CAIXA DE SELECAO
 const toggleChecked = ({ _id, isChecked }) =>
   Meteor.call('tasks.setIsChecked', _id, !isChecked);
 
@@ -14,10 +16,12 @@ const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id);
 export const App = () => {
   const user = useTracker(() => Meteor.user());
 
+  
   const [hideCompleted, setHideCompleted] = useState(false);
 
   const hideCompletedFilter = { isChecked: { $ne: true } };
 
+  //adicionar o campo userId ao seu seletor Mongo ao obter as tarefas do Mini Mongo
   const userFilter = user ? { userId: user._id } : {};
 
   const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
@@ -33,6 +37,7 @@ export const App = () => {
       return { ...noDataAvailable, isLoading: true };
     }
 
+    //MOSTRAR TAREFAS RECENTES PRIMEIRO
     const tasks = TasksCollection.find(
       hideCompleted ? pendingOnlyFilter : userFilter,
       {
@@ -56,7 +61,7 @@ export const App = () => {
         <div className="app-bar">
           <div className="app-header">
             <h1>
-              📝️ To Do List
+              📝️ To Do List Advanced
               {pendingTasksTitle}
             </h1>
           </div>
